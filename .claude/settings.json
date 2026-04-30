@@ -5,7 +5,12 @@
       "Read(//Users/peco/.nvm/versions/node/**)",
       "Bash(mv /Users/peco/ProfileWeb/Users/peco/ProfileWeb/* /Users/peco/ProfileWeb/)",
       "Bash(mv /Users/peco/ProfileWeb/Users/peco/ProfileWeb/.gitignore /Users/peco/ProfileWeb/)",
-      "Bash(rm -rf /Users/peco/ProfileWeb/Users)"
+      "Bash(rm -rf /Users/peco/ProfileWeb/Users)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)"
     ],
     "additionalDirectories": [
       "/Users/peco/ProfileWeb/src"
