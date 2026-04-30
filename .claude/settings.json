@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Read(//Users/peco/.nvm/versions/node/**)",
+      "Bash(mv /Users/peco/ProfileWeb/Users/peco/ProfileWeb/* /Users/peco/ProfileWeb/)",
+      "Bash(mv /Users/peco/ProfileWeb/Users/peco/ProfileWeb/.gitignore /Users/peco/ProfileWeb/)",
+      "Bash(rm -rf /Users/peco/ProfileWeb/Users)"
+    ],
+    "additionalDirectories": [
+      "/Users/peco/ProfileWeb/src"
+    ]
+  }
+}
