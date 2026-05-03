@@ -140,6 +140,7 @@ export default function Contact() {
               </motion.div>
             ) : (
               <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
+                <input type="hidden" name="title" value="New Portfolio Message" />
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="name"><FiUser size={14} /> Name</label>
