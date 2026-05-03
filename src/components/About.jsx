@@ -5,7 +5,7 @@ import { FiCode, FiLayers, FiZap, FiAward } from 'react-icons/fi'
 import './About.css'
 
 const stats = [
-  { icon: <FiAward />, value: '6+', label: 'Years Experience' },
+  { icon: <FiAward />, value: '7+', label: 'Years Experience' },
   { icon: <FiCode />, value: '2', label: 'Companies' },
   { icon: <FiLayers />, value: '35%', label: 'Checkout Speedup' },
   { icon: <FiZap />, value: '100%', label: 'Passion for Code' },
@@ -58,7 +58,7 @@ export default function About() {
             </h3>
             <p>
               I'm <strong>Ivan Djajusman Adi</strong>, a Frontend Developer based in Indonesia with
-              over <strong>6 years</strong> of experience building clean, responsive, and scalable user interfaces.
+              over <strong>7 years</strong> of experience building clean, responsive, and scalable user interfaces.
             </p>
             <p>
               Skilled in <strong>React</strong>, <strong>Tailwind CSS</strong>, and modern JavaScript frameworks.
