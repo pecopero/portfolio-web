@@ -7,7 +7,7 @@ import './Contact.css'
 
 // Ganti dengan kredensial EmailJS kamu
 const EMAILJS_SERVICE_ID  = 'service_uk9jy0s'
-const EMAILJS_TEMPLATE_ID = 'template_oruqcws'
+const EMAILJS_TEMPLATE_ID = 'template_7h14nlm'
 const EMAILJS_PUBLIC_KEY  = 'M7MDdTWwCcbXIA7Kb'
 
 const socials = [
