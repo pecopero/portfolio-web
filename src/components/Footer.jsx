@@ -1,11 +1,19 @@
 import { motion } from 'framer-motion'
 import { FiHeart } from 'react-icons/fi'
+import { useLanguage } from '../context/LanguageContext'
 import './Footer.css'
-
-const links = ['About', 'Skills', 'Projects', 'Experience', 'Contact']
 
 export default function Footer() {
   const year = new Date().getFullYear()
+  const { t, nav } = useLanguage()
+
+  const links = [
+    { label: t.nav.about, href: 'about' },
+    { label: t.nav.skills, href: 'skills' },
+    { label: t.nav.projects, href: 'projects' },
+    { label: t.nav.experience, href: 'experience' },
+    { label: t.nav.contact, href: 'contact' },
+  ]
 
   return (
     <footer className="footer">
@@ -22,16 +30,16 @@ export default function Footer() {
 
         <nav className="footer-links">
           {links.map(l => (
-            <a key={l} href={`#${l.toLowerCase()}`} className="footer-link">
-              {l}
+            <a key={l.href} href={`#${l.href}`} className="footer-link">
+              {l.label}
             </a>
           ))}
         </nav>
 
         <p className="footer-copy">
-          © {year} Ivan Djajusman Adi. Built with{' '}
+          © {year} Ivan Djajusman Adi. {t.footer.copy}{' '}
           <FiHeart className="heart-icon" size={13} />{' '}
-          using React & Framer Motion.
+          {t.footer.and}
         </p>
       </div>
     </footer>

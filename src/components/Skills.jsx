@@ -1,18 +1,19 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import {
-  FaReact, FaHtml5, FaCss3Alt, FaJs, FaSass, FaGitAlt, FaFigma, FaNpm
+  FaReact, FaHtml5, FaCss3Alt, FaJs, FaSass, FaGitAlt, FaFigma
 } from 'react-icons/fa'
 import {
   SiTypescript, SiNextdotjs, SiTailwindcss, SiShopify,
   SiRedux, SiVite, SiWebpack, SiJest, SiStorybook, SiGraphql, SiPostman
 } from 'react-icons/si'
 import { FiBox } from 'react-icons/fi'
+import { useLanguage } from '../context/LanguageContext'
 import './Skills.css'
 
-const categories = [
+const skillData = [
   {
-    label: 'Core Languages',
+    key: 'core',
     color: '#F59E0B',
     skills: [
       { name: 'HTML5', icon: <FaHtml5 />, level: 95 },
@@ -22,7 +23,7 @@ const categories = [
     ]
   },
   {
-    label: 'Frameworks & Libraries',
+    key: 'frameworks',
     color: '#7C3AED',
     skills: [
       { name: 'React', icon: <FaReact />, level: 92 },
@@ -33,7 +34,7 @@ const categories = [
     ]
   },
   {
-    label: 'E-Commerce',
+    key: 'ecommerce',
     color: '#EC4899',
     skills: [
       { name: 'Shopify', icon: <SiShopify />, level: 88 },
@@ -41,7 +42,7 @@ const categories = [
     ]
   },
   {
-    label: 'Tools & Others',
+    key: 'tools',
     color: '#10B981',
     skills: [
       { name: 'Git', icon: <FaGitAlt />, level: 88 },
@@ -85,6 +86,12 @@ function SkillBar({ name, icon, level, color, index, inView }) {
 export default function Skills() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const { t } = useLanguage()
+
+  const categories = skillData.map(cat => ({
+    ...cat,
+    label: t.skills.categories[cat.key],
+  }))
 
   return (
     <section id="skills" className="section skills-section">
@@ -95,14 +102,14 @@ export default function Skills() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2>Skills</h2>
-          <p>Technologies I work with on a daily basis</p>
+          <h2>{t.skills.title}</h2>
+          <p>{t.skills.subtitle}</p>
         </motion.div>
 
         <div className="skills-grid">
           {categories.map((cat, ci) => (
             <motion.div
-              key={cat.label}
+              key={cat.key}
               className="skill-card"
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -114,13 +121,7 @@ export default function Skills() {
               </div>
               <div className="skill-list">
                 {cat.skills.map((skill, si) => (
-                  <SkillBar
-                    key={skill.name}
-                    {...skill}
-                    color={cat.color}
-                    index={si}
-                    inView={inView}
-                  />
+                  <SkillBar key={skill.name} {...skill} color={cat.color} index={si} inView={inView} />
                 ))}
               </div>
             </motion.div>

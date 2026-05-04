@@ -1,19 +1,28 @@
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { FiCode, FiLayers, FiZap, FiAward } from 'react-icons/fi'
+import { useLanguage } from '../context/LanguageContext'
 import './About.css'
 
-const stats = [
-  { icon: <FiAward />, value: '7+', label: 'Years Experience' },
-  { icon: <FiCode />, value: '2', label: 'Companies' },
-  { icon: <FiLayers />, value: '35%', label: 'Checkout Speedup' },
-  { icon: <FiZap />, value: '100%', label: 'Passion for Code' },
-]
+function RichText({ text }) {
+  return (
+    <p dangerouslySetInnerHTML={{
+      __html: text.replace(/<b>(.*?)<\/b>/g, '<strong>$1</strong>')
+    }} />
+  )
+}
 
 export default function About() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
+  const { t } = useLanguage()
+
+  const stats = [
+    { icon: <FiAward />, value: '7+', label: t.about.stats.years },
+    { icon: <FiCode />, value: '2', label: t.about.stats.companies },
+    { icon: <FiLayers />, value: '80%', label: t.about.stats.speedup },
+    { icon: <FiZap />, value: '100%', label: t.about.stats.passion },
+  ]
 
   return (
     <section id="about" className="section">
@@ -24,8 +33,8 @@ export default function About() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2>About Me</h2>
-          <p>A little bit about who I am</p>
+          <h2>{t.about.title}</h2>
+          <p>{t.about.subtitle}</p>
         </motion.div>
 
         <div className="about-grid">
@@ -53,22 +62,17 @@ export default function About() {
             transition={{ duration: 0.7, delay: 0.3 }}
           >
             <h3 className="about-heading">
-              Turning ideas into{' '}
-              <span className="gradient-text">pixel-perfect</span> experiences
+              {t.about.heading.split('pixel-perfect').length > 1 ? (
+                <>
+                  {t.about.heading.split('pixel-perfect')[0]}
+                  <span className="gradient-text">pixel-perfect</span>
+                  {t.about.heading.split('pixel-perfect')[1]}
+                </>
+              ) : t.about.heading}
             </h3>
-            <p>
-              I'm <strong>Ivan Djajusman Adi</strong>, a Frontend Developer based in Indonesia with
-              over <strong>7 years</strong> of experience building clean, responsive, and scalable user interfaces.
-            </p>
-            <p>
-              Skilled in <strong>React</strong>, <strong>Tailwind CSS</strong>, and modern JavaScript frameworks.
-              I have a proven ability to collaborate cross-functionally and optimize web performance for
-              high-traffic applications — including a <strong>35% checkout speed improvement</strong> at Bridzia Sdn Bhd.
-            </p>
-            <p>
-              Strong focus on clean architecture, UX excellence, and delivering real business impact.
-              I also graduated in <strong>Computer Science</strong> from Universitas Kristen Duta Wacana (2018).
-            </p>
+            <RichText text={t.about.p1} />
+            <RichText text={t.about.p2} />
+            <RichText text={t.about.p3} />
 
             <div className="about-stats">
               {stats.map((stat, i) => (

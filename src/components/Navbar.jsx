@@ -2,20 +2,22 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi'
 import { useTheme } from '../context/ThemeContext'
+import { useLanguage } from '../context/LanguageContext'
 import './Navbar.css'
-
-const links = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '#contact' },
-]
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
+  const { lang, toggleLang, t } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const links = [
+    { label: t.nav.about, href: '#about' },
+    { label: t.nav.skills, href: '#skills' },
+    { label: t.nav.projects, href: '#projects' },
+    { label: t.nav.experience, href: '#experience' },
+    { label: t.nav.contact, href: '#contact' },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -46,6 +48,21 @@ export default function Navbar() {
         </ul>
 
         <div className="navbar-actions">
+          <button className="lang-btn" onClick={toggleLang} aria-label="Toggle language">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={lang}
+                initial={{ y: -8, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 8, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {lang === 'en' ? '🇮🇩' : '🇬🇧'}
+              </motion.span>
+            </AnimatePresence>
+            <span className="lang-label">{lang === 'en' ? 'ID' : 'EN'}</span>
+          </button>
+
           <button className="theme-btn" onClick={toggleTheme} aria-label="Toggle theme">
             <AnimatePresence mode="wait">
               <motion.span
