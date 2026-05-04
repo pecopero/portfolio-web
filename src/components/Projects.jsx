@@ -39,7 +39,7 @@ const projects = [
     color: '#EC4899',
     icon: <FiCode />,
     github: null,
-    live: 'https://www.guardian.com.my/',
+    live: 'https://www.guardian.com.sg/',
   },
 ]
 
