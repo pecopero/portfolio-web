@@ -12,7 +12,7 @@ const projects = [
     color: '#7C3AED',
     icon: <FiCode />,
     github: 'https://github.com/pecopero/github-repo-explorer',
-    live: null,
+    live: 'https://pecopero.github.io/github-repo-explorer/',
   },
   {
     title: 'Seiko Boutique Indonesia',
