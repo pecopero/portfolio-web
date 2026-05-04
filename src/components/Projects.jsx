@@ -12,7 +12,7 @@ const projects = [
     color: '#7C3AED',
     icon: <FiCode />,
     github: 'https://github.com/pecopero/github-repo-explorer',
-    live: '#',
+    live: null,
   },
   {
     title: 'Seiko Boutique Indonesia',
@@ -20,8 +20,8 @@ const projects = [
     tags: ['Shopify', 'Liquid', 'JavaScript', 'CSS3'],
     color: '#10B981',
     icon: <FiShoppingCart />,
-    github: '#',
-    live: '#',
+    github: null,
+    live: 'https://seikoboutique.co.id/',
   },
   {
     title: 'SIRCLO E-Commerce Platform',
@@ -29,8 +29,8 @@ const projects = [
     tags: ['React', 'JavaScript', 'Tailwind CSS', 'Figma'],
     color: '#F59E0B',
     icon: <FiLayout />,
-    github: '#',
-    live: '#',
+    github: null,
+    live: null,
   },
   {
     title: 'Checkout Performance Optimization',
@@ -38,8 +38,8 @@ const projects = [
     tags: ['React', 'TypeScript', 'Performance', 'Tailwind CSS'],
     color: '#EC4899',
     icon: <FiCode />,
-    github: '#',
-    live: '#',
+    github: null,
+    live: 'https://www.guardian.com.my/',
   },
 ]
 
@@ -140,8 +140,16 @@ export default function Projects() {
                   {p.icon}
                 </div>
                 <div className="project-links">
-                  <a href={p.github} className="proj-link" aria-label="GitHub"><FiGithub /></a>
-                  <a href={p.live} className="proj-link" aria-label="Live"><FiExternalLink /></a>
+                  {p.github && (
+                    <a href={p.github} target="_blank" rel="noreferrer" className="proj-link" aria-label="GitHub">
+                      <FiGithub />
+                    </a>
+                  )}
+                  {p.live && (
+                    <a href={p.live} target="_blank" rel="noreferrer" className="proj-link" aria-label="Live">
+                      <FiExternalLink />
+                    </a>
+                  )}
                 </div>
               </div>
               <div className="project-body">
