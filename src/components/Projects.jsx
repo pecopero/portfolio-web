@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { motion, useInView, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion'
 import { FiExternalLink, FiGithub, FiLayout, FiShoppingCart, FiCode } from 'react-icons/fi'
 import { useLanguage } from '../context/LanguageContext'
 import './Projects.css'
@@ -58,10 +58,59 @@ const descriptions = {
   },
 }
 
+function TiltCard({ color, initial, animate, transition, children }) {
+  const [glowing, setGlowing] = useState(false)
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [9, -9]), { stiffness: 500, damping: 40 })
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-9, 9]), { stiffness: 500, damping: 40 })
+  const scale   = useSpring(1, { stiffness: 400, damping: 35 })
+
+  const onMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5)
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5)
+    scale.set(1.04)
+    setGlowing(true)
+  }
+
+  const onMouseLeave = () => {
+    mouseX.set(0)
+    mouseY.set(0)
+    scale.set(1)
+    setGlowing(false)
+  }
+
+  return (
+    <motion.div
+      className="project-card"
+      initial={initial}
+      animate={animate}
+      transition={transition}
+      style={{ rotateX, rotateY, scale }}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
+      {children}
+      <AnimatePresence>
+        {glowing && (
+          <motion.div
+            className="project-glow"
+            style={{ background: `radial-gradient(circle at 50% 100%, ${color}25, transparent 70%)` }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          />
+        )}
+      </AnimatePresence>
+    </motion.div>
+  )
+}
+
 export default function Projects() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const [hovered, setHovered] = useState(null)
   const { t, lang } = useLanguage()
 
   return (
@@ -79,14 +128,12 @@ export default function Projects() {
 
         <div className="projects-grid">
           {projects.map((p, i) => (
-            <motion.div
+            <TiltCard
               key={p.title}
-              className="project-card"
+              color={p.color}
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered(null)}
             >
               <div className="project-top" style={{ background: `${p.color}18`, borderBottom: `1px solid ${p.color}30` }}>
                 <div className="project-icon" style={{ color: p.color, background: `${p.color}22` }}>
@@ -108,18 +155,7 @@ export default function Projects() {
                   ))}
                 </div>
               </div>
-              <AnimatePresence>
-                {hovered === i && (
-                  <motion.div
-                    className="project-glow"
-                    style={{ background: `radial-gradient(circle at 50% 100%, ${p.color}20, transparent 70%)` }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  />
-                )}
-              </AnimatePresence>
-            </motion.div>
+            </TiltCard>
           ))}
         </div>
       </div>

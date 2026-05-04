@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { FiCode, FiLayers, FiZap, FiAward } from 'react-icons/fi'
 import { useLanguage } from '../context/LanguageContext'
 import './About.css'
@@ -12,16 +12,38 @@ function RichText({ text }) {
   )
 }
 
+function CountUp({ num, suffix, inView, duration = 1400 }) {
+  const [count, setCount] = useState(0)
+  const started = useRef(false)
+
+  useEffect(() => {
+    if (!inView || started.current) return
+    started.current = true
+
+    let startTime = null
+    const animate = (ts) => {
+      if (!startTime) startTime = ts
+      const progress = Math.min((ts - startTime) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCount(Math.round(eased * num))
+      if (progress < 1) requestAnimationFrame(animate)
+    }
+    requestAnimationFrame(animate)
+  }, [inView, num, duration])
+
+  return <>{count}{suffix}</>
+}
+
 export default function About() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
   const { t } = useLanguage()
 
   const stats = [
-    { icon: <FiAward />, value: '7+', label: t.about.stats.years },
-    { icon: <FiCode />, value: '2', label: t.about.stats.companies },
-    { icon: <FiLayers />, value: '80%', label: t.about.stats.speedup },
-    { icon: <FiZap />, value: '100%', label: t.about.stats.passion },
+    { icon: <FiAward />,  num: 7,   suffix: '+', label: t.about.stats.years },
+    { icon: <FiCode />,   num: 2,   suffix: '',  label: t.about.stats.companies },
+    { icon: <FiLayers />, num: 80,  suffix: '%', label: t.about.stats.speedup },
+    { icon: <FiZap />,    num: 100, suffix: '%', label: t.about.stats.passion },
   ]
 
   return (
@@ -84,7 +106,9 @@ export default function About() {
                   transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
                 >
                   <div className="stat-icon">{stat.icon}</div>
-                  <div className="stat-value">{stat.value}</div>
+                  <div className="stat-value">
+                    <CountUp num={stat.num} suffix={stat.suffix} inView={inView} />
+                  </div>
                   <div className="stat-label">{stat.label}</div>
                 </motion.div>
               ))}

@@ -10,22 +10,25 @@ const LANGUAGES = [
   { code: 'id', label: 'Indonesia', flag: '🇮🇩' },
 ]
 
+const SECTION_IDS = ['about', 'skills', 'projects', 'experience', 'contact']
+
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
   const { lang, switchLang, t } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
   const langRef = useRef(null)
 
   const current = LANGUAGES.find(l => l.code === lang)
 
   const links = [
-    { label: t.nav.about, href: '#about' },
-    { label: t.nav.skills, href: '#skills' },
-    { label: t.nav.projects, href: '#projects' },
-    { label: t.nav.experience, href: '#experience' },
-    { label: t.nav.contact, href: '#contact' },
+    { label: t.nav.about,      href: '#about',      id: 'about' },
+    { label: t.nav.skills,     href: '#skills',     id: 'skills' },
+    { label: t.nav.projects,   href: '#projects',   id: 'projects' },
+    { label: t.nav.experience, href: '#experience', id: 'experience' },
+    { label: t.nav.contact,    href: '#contact',    id: 'contact' },
   ]
 
   useEffect(() => {
@@ -44,6 +47,21 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', onClickOutside)
   }, [])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY + 120
+      let current = ''
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id)
+        if (el && el.offsetTop <= offset) current = id
+      }
+      setActiveSection(current)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <motion.nav
       className={`navbar${scrolled ? ' scrolled' : ''}`}
@@ -60,8 +78,20 @@ export default function Navbar() {
 
         <ul className="navbar-links">
           {links.map(link => (
-            <li key={link.label}>
-              <a href={link.href} className="nav-link">{link.label}</a>
+            <li key={link.id}>
+              <a
+                href={link.href}
+                className={`nav-link${activeSection === link.id ? ' active' : ''}`}
+              >
+                {link.label}
+                {activeSection === link.id && (
+                  <motion.span
+                    className="nav-active-dot"
+                    layoutId="nav-dot"
+                    transition={{ type: 'spring', stiffness: 500, damping: 40 }}
+                  />
+                )}
+              </a>
             </li>
           ))}
         </ul>
@@ -141,9 +171,9 @@ export default function Navbar() {
           >
             {links.map((link, i) => (
               <motion.a
-                key={link.label}
+                key={link.id}
                 href={link.href}
-                className="mobile-link"
+                className={`mobile-link${activeSection === link.id ? ' active' : ''}`}
                 onClick={() => setMenuOpen(false)}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}

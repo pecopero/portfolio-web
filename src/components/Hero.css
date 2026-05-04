@@ -115,6 +115,26 @@
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   color: var(--text-muted);
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 1.2em;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background: var(--purple-light);
+  border-radius: 2px;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
 
 .hero-desc {

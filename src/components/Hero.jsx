@@ -1,8 +1,41 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { FiDownload, FiArrowDown } from 'react-icons/fi'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { useLanguage } from '../context/LanguageContext'
 import './Hero.css'
+
+const ROLES = ['Frontend Developer', 'React Specialist', 'Shopify Developer', 'UI Craftsman']
+
+function useTypewriter(words, typeSpeed = 80, deleteSpeed = 45, pauseTime = 2000) {
+  const [text, setText] = useState('')
+  const [wordIdx, setWordIdx] = useState(0)
+  const [deleting, setDeleting] = useState(false)
+
+  useEffect(() => {
+    const word = words[wordIdx]
+    let timeout
+
+    if (!deleting) {
+      if (text.length < word.length) {
+        timeout = setTimeout(() => setText(word.slice(0, text.length + 1)), typeSpeed)
+      } else {
+        timeout = setTimeout(() => setDeleting(true), pauseTime)
+      }
+    } else {
+      if (text.length > 0) {
+        timeout = setTimeout(() => setText(word.slice(0, text.length - 1)), deleteSpeed)
+      } else {
+        setDeleting(false)
+        setWordIdx(i => (i + 1) % words.length)
+      }
+    }
+
+    return () => clearTimeout(timeout)
+  }, [text, deleting, wordIdx, words, typeSpeed, deleteSpeed, pauseTime])
+
+  return text
+}
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 40 },
@@ -12,6 +45,7 @@ const fadeUp = (delay = 0) => ({
 
 export default function Hero() {
   const { t } = useLanguage()
+  const typedRole = useTypewriter(ROLES)
 
   return (
     <section id="hero" className="hero-section">
@@ -32,7 +66,10 @@ export default function Hero() {
           {t.hero.greeting}{' '}
           <span className="gradient-text">Ivan Djajusman</span>
           <br />
-          <span className="hero-role">{t.hero.role}</span>
+          <span className="hero-role">
+            {typedRole}
+            <span className="typewriter-cursor" />
+          </span>
         </motion.h1>
 
         <motion.p className="hero-desc" {...fadeUp(0.5)}>
