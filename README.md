@@ -1,6 +1,6 @@
 # Portfolio Web — Ivan Djajusman Adi
 
-> Dokumentasi lengkap untuk belajar dan memahami setiap bagian kode project ini.
+> Dokumentasi yang lengkap untuk belajar dan memahami setiap bagian kode project ini.
 
 ---
 
