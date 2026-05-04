@@ -62,6 +62,10 @@
   gap: 8px;
 }
 
+.lang-dropdown {
+  position: relative;
+}
+
 .lang-btn {
   height: 40px;
   padding: 0 12px;
@@ -79,14 +83,73 @@
   transition: all 0.2s ease;
 }
 
-.lang-btn:hover {
+.lang-btn:hover,
+.lang-btn.open {
   border-color: var(--purple);
   color: var(--purple-light);
+}
+
+.lang-flag {
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .lang-label {
   font-size: 0.78rem;
   letter-spacing: 0.5px;
+}
+
+.lang-chevron {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+}
+
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 150px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  list-style: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 200;
+  transform-origin: top right;
+}
+
+.lang-option {
+  width: 100%;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.lang-option:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+.lang-option.active {
+  color: var(--purple-light);
+  font-weight: 600;
+}
+
+.lang-check {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--purple-light);
 }
 
 .theme-btn {

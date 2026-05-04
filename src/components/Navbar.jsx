@@ -1,15 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi'
+import { FiSun, FiMoon, FiMenu, FiX, FiChevronDown } from 'react-icons/fi'
 import { useTheme } from '../context/ThemeContext'
 import { useLanguage } from '../context/LanguageContext'
 import './Navbar.css'
 
+const LANGUAGES = [
+  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'id', label: 'Indonesia', flag: '🇮🇩' },
+]
+
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
-  const { lang, toggleLang, t } = useLanguage()
+  const { lang, switchLang, t } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [langOpen, setLangOpen] = useState(false)
+  const langRef = useRef(null)
+
+  const current = LANGUAGES.find(l => l.code === lang)
 
   const links = [
     { label: t.nav.about, href: '#about' },
@@ -23,6 +32,16 @@ export default function Navbar() {
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const onClickOutside = (e) => {
+      if (langRef.current && !langRef.current.contains(e.target)) {
+        setLangOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onClickOutside)
+    return () => document.removeEventListener('mousedown', onClickOutside)
   }, [])
 
   return (
@@ -48,20 +67,48 @@ export default function Navbar() {
         </ul>
 
         <div className="navbar-actions">
-          <button className="lang-btn" onClick={toggleLang} aria-label="Toggle language">
-            <AnimatePresence mode="wait">
+          <div className="lang-dropdown" ref={langRef}>
+            <button
+              className={`lang-btn${langOpen ? ' open' : ''}`}
+              onClick={() => setLangOpen(o => !o)}
+              aria-label="Select language"
+            >
+              <span className="lang-flag">{current.flag}</span>
+              <span className="lang-label">{current.code.toUpperCase()}</span>
               <motion.span
-                key={lang}
-                initial={{ y: -8, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 8, opacity: 0 }}
+                className="lang-chevron"
+                animate={{ rotate: langOpen ? 180 : 0 }}
                 transition={{ duration: 0.2 }}
               >
-                {lang === 'en' ? '🇮🇩' : '🇬🇧'}
+                <FiChevronDown size={13} />
               </motion.span>
+            </button>
+
+            <AnimatePresence>
+              {langOpen && (
+                <motion.ul
+                  className="lang-menu"
+                  initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  {LANGUAGES.map(l => (
+                    <li key={l.code}>
+                      <button
+                        className={`lang-option${lang === l.code ? ' active' : ''}`}
+                        onClick={() => { switchLang(l.code); setLangOpen(false) }}
+                      >
+                        <span>{l.flag}</span>
+                        <span>{l.label}</span>
+                        {lang === l.code && <span className="lang-check">✓</span>}
+                      </button>
+                    </li>
+                  ))}
+                </motion.ul>
+              )}
             </AnimatePresence>
-            <span className="lang-label">{lang === 'en' ? 'ID' : 'EN'}</span>
-          </button>
+          </div>
 
           <button className="theme-btn" onClick={toggleTheme} aria-label="Toggle theme">
             <AnimatePresence mode="wait">

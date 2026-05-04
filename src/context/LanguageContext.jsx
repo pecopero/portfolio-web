@@ -8,8 +8,7 @@ const LanguageContext = createContext()
 export function LanguageProvider({ children }) {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'en')
 
-  const toggleLang = () => {
-    const next = lang === 'en' ? 'id' : 'en'
+  const switchLang = (next) => {
     setLang(next)
     localStorage.setItem('lang', next)
   }
@@ -17,7 +16,7 @@ export function LanguageProvider({ children }) {
   const t = translations[lang]
 
   return (
-    <LanguageContext.Provider value={{ lang, toggleLang, t }}>
+    <LanguageContext.Provider value={{ lang, switchLang, t }}>
       {children}
     </LanguageContext.Provider>
   )
