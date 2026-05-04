@@ -94,6 +94,24 @@ const id = {
     successDesc: 'Terima kasih sudah menghubungi. Saya akan segera membalas.',
     errorMsg: 'Gagal mengirim pesan. Silakan coba lagi.',
   },
+  whatIDo: {
+    title: 'Yang Saya Kerjakan',
+    subtitle: 'Area di mana saya memberikan nilai terbaik',
+    cards: [
+      {
+        title: 'Frontend Development',
+        desc: 'Membangun antarmuka web yang cepat, responsif, dan aksesibel menggunakan React, TypeScript, dan CSS modern — dari landing page hingga aplikasi web kompleks.',
+      },
+      {
+        title: 'Solusi E-Commerce',
+        desc: 'Pengembangan Shopify end-to-end — custom theme, arsitektur produk, dan storefront berkinerja tinggi yang siap menjangkau audiens global.',
+      },
+      {
+        title: 'Optimasi Performa',
+        desc: 'Mendiagnosis dan memperbaiki bottleneck frontend untuk menghasilkan peningkatan kecepatan yang terukur, Core Web Vitals yang lebih baik, dan UX yang lebih smooth.',
+      },
+    ],
+  },
   footer: {
     copy: 'Dibuat dengan',
     and: 'menggunakan React & Framer Motion.',

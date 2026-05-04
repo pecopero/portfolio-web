@@ -9,15 +9,19 @@ import Footer from './components/Footer'
 import ScrollProgress from './components/ScrollProgress'
 import BackToTop from './components/BackToTop'
 import SplashScreen from './components/SplashScreen'
+import CustomCursor from './components/CustomCursor'
+import WhatIDo from './components/WhatIDo'
 
 export default function App() {
   return (
     <>
+      <CustomCursor />
       <SplashScreen />
       <ScrollProgress />
       <Navbar />
       <main>
         <Hero />
+        <WhatIDo />
         <About />
         <Skills />
         <Projects />

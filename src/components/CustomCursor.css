@@ -1,0 +1,47 @@
+@media (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
+.cur-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.cur-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(167, 139, 250, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.cur-ring.hov {
+  width: 54px;
+  height: 54px;
+  border-color: var(--purple);
+  background: rgba(124, 58, 237, 0.1);
+}
+
+.cur-ring.clk {
+  width: 22px;
+  height: 22px;
+  background: rgba(124, 58, 237, 0.15);
+}
+
+.cur-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--purple-light);
+  transform: translate(-50%, -50%);
+  transition: width 0.12s, height 0.12s;
+}
+
+.cur-dot.clk {
+  width: 11px;
+  height: 11px;
+}

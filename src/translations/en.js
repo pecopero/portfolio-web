@@ -94,6 +94,24 @@ const en = {
     successDesc: "Thanks for reaching out. I'll get back to you as soon as possible.",
     errorMsg: 'Failed to send message. Please try again.',
   },
+  whatIDo: {
+    title: 'What I Do',
+    subtitle: 'Areas where I deliver the most value',
+    cards: [
+      {
+        title: 'Frontend Development',
+        desc: 'Building fast, responsive, and accessible web interfaces using React, TypeScript, and modern CSS — from landing pages to complex web applications.',
+      },
+      {
+        title: 'E-Commerce Solutions',
+        desc: 'End-to-end Shopify development — custom themes, product architecture, and performance-tuned storefronts ready for global audiences.',
+      },
+      {
+        title: 'Performance Optimization',
+        desc: 'Diagnosing and resolving frontend bottlenecks to deliver measurable speed improvements, better Core Web Vitals, and smoother user experiences.',
+      },
+    ],
+  },
   footer: {
     copy: 'Built with',
     and: 'using React & Framer Motion.',
