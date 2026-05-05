@@ -31,7 +31,20 @@ export default function Contact() {
     e.preventDefault()
     setStatus('loading')
     try {
-      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current, { publicKey: EMAILJS_PUBLIC_KEY })
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: form.name,
+          name: form.name,
+          from_email: form.email,
+          email: form.email,
+          reply_to: form.email,
+          message: form.message,
+          title: 'New Portfolio Message',
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      )
       setStatus('success')
       setForm({ name: '', email: '', message: '' })
       confetti({
