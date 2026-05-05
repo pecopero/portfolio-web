@@ -42,6 +42,15 @@ const projects = [
     github: null,
     live: 'https://www.guardian.com.sg/',
   },
+  {
+    title: 'Island Rituals',
+    descKey: 'island',
+    tags: ['Shopify', 'Liquid', 'JavaScript', 'CSS3'],
+    color: '#06B6D4',
+    icon: <FiShoppingCart />,
+    github: null,
+    live: 'https://islandrituals.id/',
+  },
 ]
 
 const descriptions = {
@@ -50,12 +59,14 @@ const descriptions = {
     seiko: 'Led end-to-end Shopify development for a premium global watch brand. Implemented custom theme, responsive UI, and product architecture. Delivered a production-ready store within 3 days.',
     sirclo: 'Built and scaled React-based frontend systems for high-traffic e-commerce platforms at SIRCLO. Developed reusable UI component libraries that improved team-wide development efficiency.',
     checkout: 'Led a performance optimization initiative at Bridzia that improved checkout page load speed by 80%. Applied code splitting, lazy loading, and clean architecture principles.',
+    island: 'Developed a full Shopify storefront for Island Rituals, an Indonesian wellness and lifestyle brand. Implemented custom theme, product pages, and a smooth shopping experience optimized for mobile.',
   },
   id: {
     github: 'Proyek personal menggunakan React dan GitHub API untuk mencari dan menjelajahi repositori berdasarkan username. Fitur: pencarian real-time, pagination, dan UI responsif yang bersih.',
     seiko: 'Memimpin pengembangan Shopify end-to-end untuk brand jam tangan premium global. Mengimplementasikan custom theme, UI responsif, dan arsitektur produk. Store siap produksi dalam 3 hari.',
     sirclo: 'Membangun dan mengembangkan sistem frontend berbasis React untuk platform e-commerce traffic tinggi di SIRCLO. Mengembangkan library komponen UI yang meningkatkan efisiensi seluruh tim.',
     checkout: 'Memimpin inisiatif optimasi performa di Bridzia yang meningkatkan kecepatan halaman checkout sebesar 80%. Menerapkan code splitting, lazy loading, dan prinsip arsitektur bersih.',
+    island: 'Mengembangkan storefront Shopify lengkap untuk Island Rituals, brand wellness dan lifestyle asal Indonesia. Mengimplementasikan custom theme, halaman produk, dan pengalaman belanja yang smooth dan mobile-friendly.',
   },
 }
 
