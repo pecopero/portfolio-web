@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { motion, useInView, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { motion, useInView, useMotionValue, useTransform, useSpring } from 'framer-motion'
 import { FiExternalLink, FiGithub, FiLayout, FiShoppingCart, FiCode, FiStar, FiUsers } from 'react-icons/fi'
 import { FaGithub } from 'react-icons/fa'
 import { useLanguage } from '../context/LanguageContext'
@@ -71,7 +71,6 @@ const descriptions = {
 }
 
 function TiltCard({ color, initial, animate, transition, children }) {
-  const [glowing, setGlowing] = useState(false)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
@@ -84,14 +83,12 @@ function TiltCard({ color, initial, animate, transition, children }) {
     mouseX.set((e.clientX - rect.left) / rect.width - 0.5)
     mouseY.set((e.clientY - rect.top) / rect.height - 0.5)
     scale.set(1.04)
-    setGlowing(true)
   }
 
   const onMouseLeave = () => {
     mouseX.set(0)
     mouseY.set(0)
     scale.set(1)
-    setGlowing(false)
   }
 
   return (
@@ -105,17 +102,6 @@ function TiltCard({ color, initial, animate, transition, children }) {
       onMouseLeave={onMouseLeave}
     >
       {children}
-      <AnimatePresence>
-        {glowing && (
-          <motion.div
-            className="project-glow"
-            style={{ background: `radial-gradient(circle at 50% 100%, ${color}25, transparent 70%)` }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          />
-        )}
-      </AnimatePresence>
     </motion.div>
   )
 }
