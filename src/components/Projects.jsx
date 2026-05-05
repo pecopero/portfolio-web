@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useInView, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion'
-import { FiExternalLink, FiGithub, FiLayout, FiShoppingCart, FiCode } from 'react-icons/fi'
+import { FiExternalLink, FiGithub, FiLayout, FiShoppingCart, FiCode, FiStar, FiUsers } from 'react-icons/fi'
+import { FaGithub } from 'react-icons/fa'
 import { useLanguage } from '../context/LanguageContext'
 import './Projects.css'
 
@@ -128,45 +129,79 @@ export default function Projects() {
 
         <div className="projects-grid">
           {projects.map((p, i) => (
-            <TiltCard
-              key={p.title}
-              color={p.color}
-              initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-            >
-              <div className="project-top" style={{ background: `${p.color}18`, borderBottom: `1px solid ${p.color}30` }}>
-                <div className="project-icon" style={{ color: p.color, background: `${p.color}22` }}>
-                  {p.icon}
+            <div key={p.title} className="proj-wrap">
+              <TiltCard
+                color={p.color}
+                initial={{ opacity: 0, y: 40 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+              >
+                <div className="project-top" style={{ background: `${p.color}18`, borderBottom: `1px solid ${p.color}30` }}>
+                  <div className="project-icon" style={{ color: p.color, background: `${p.color}22` }}>
+                    {p.icon}
+                  </div>
+                  <div className="project-links">
+                    {p.github && (
+                      <a href={p.github} target="_blank" rel="noreferrer" className="proj-link" aria-label="GitHub">
+                        <FiGithub />
+                      </a>
+                    )}
+                    {p.live && (
+                      <a href={p.live} target="_blank" rel="noreferrer" className="proj-link" aria-label="Live">
+                        <FiExternalLink />
+                      </a>
+                    )}
+                  </div>
                 </div>
-                <div className="project-links">
-                  {p.github && (
-                    <a href={p.github} target="_blank" rel="noreferrer" className="proj-link" aria-label="GitHub">
-                      <FiGithub />
-                    </a>
-                  )}
-                  {p.live && (
-                    <a href={p.live} target="_blank" rel="noreferrer" className="proj-link" aria-label="Live">
-                      <FiExternalLink />
-                    </a>
-                  )}
+                <div className="project-body">
+                  <h3 className="project-title">{p.title}</h3>
+                  <p className="project-desc">{descriptions[lang][p.descKey]}</p>
+                  <div className="project-tags">
+                    {p.tags.map(tag => (
+                      <span key={tag} className="proj-tag" style={{ borderColor: `${p.color}50`, color: p.color }}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="project-body">
-                <h3 className="project-title">{p.title}</h3>
-                <p className="project-desc">{descriptions[lang][p.descKey]}</p>
-                <div className="project-tags">
-                  {p.tags.map(tag => (
-                    <span key={tag} className="proj-tag" style={{ borderColor: `${p.color}50`, color: p.color }}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </TiltCard>
+              </TiltCard>
+            </div>
           ))}
         </div>
+
+        <GitHubStats inView={inView} />
       </div>
     </section>
+  )
+}
+
+function GitHubStats({ inView }) {
+  const [stats, setStats] = useState(null)
+
+  useEffect(() => {
+    fetch('https://api.github.com/users/pecopero')
+      .then(r => r.json())
+      .then(d => setStats({ repos: d.public_repos, followers: d.followers }))
+      .catch(() => {})
+  }, [])
+
+  if (!stats) return null
+
+  return (
+    <motion.a
+      href="https://github.com/pecopero"
+      target="_blank"
+      rel="noreferrer"
+      className="github-stats-bar"
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: 0.5 }}
+    >
+      <FaGithub size={18} />
+      <span className="gh-stat"><FiStar size={14} /> {stats.repos} public repos</span>
+      <span className="gh-dot">·</span>
+      <span className="gh-stat"><FiUsers size={14} /> {stats.followers} followers</span>
+      <span className="gh-arrow">View GitHub →</span>
+    </motion.a>
   )
 }

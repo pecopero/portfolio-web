@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import emailjs from '@emailjs/browser'
+import confetti from 'canvas-confetti'
 import { FiMail, FiSend, FiUser, FiMessageSquare, FiMapPin, FiPhone, FiAlertCircle } from 'react-icons/fi'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import { useLanguage } from '../context/LanguageContext'
@@ -33,6 +34,12 @@ export default function Contact() {
       await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current, { publicKey: EMAILJS_PUBLIC_KEY })
       setStatus('success')
       setForm({ name: '', email: '', message: '' })
+      confetti({
+        particleCount: 160,
+        spread: 80,
+        origin: { y: 0.65 },
+        colors: ['#7C3AED', '#EC4899', '#06B6D4', '#F59E0B', '#A78BFA', '#ffffff'],
+      })
       setTimeout(() => setStatus('idle'), 5000)
     } catch {
       setStatus('error')
