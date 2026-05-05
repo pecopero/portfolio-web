@@ -150,7 +150,7 @@ export default function Hero() {
           <a href="https://github.com/pecopero" target="_blank" rel="noreferrer" className="social-link" aria-label="GitHub">
             <FaGithub size={22} />
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-link" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/ignatius-ivan-djajusman-adi-243682169/" target="_blank" rel="noreferrer" className="social-link" aria-label="LinkedIn">
             <FaLinkedin size={22} />
           </a>
         </motion.div>

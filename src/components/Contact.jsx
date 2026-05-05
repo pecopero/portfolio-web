@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import confetti from 'canvas-confetti'
 import { FiMail, FiSend, FiUser, FiMessageSquare, FiMapPin, FiPhone, FiAlertCircle } from 'react-icons/fi'
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { useLanguage } from '../context/LanguageContext'
 import './Contact.css'
 
@@ -13,8 +13,7 @@ const EMAILJS_PUBLIC_KEY  = 'M7MDdTWwCcbXIA7Kb'
 
 const socials = [
   { icon: <FaGithub />, label: 'GitHub', href: 'https://github.com/pecopero', color: '#A78BFA' },
-  { icon: <FaLinkedin />, label: 'LinkedIn', href: '#', color: '#06B6D4' },
-  { icon: <FaTwitter />, label: 'Twitter/X', href: '#', color: '#EC4899' },
+  { icon: <FaLinkedin />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/ignatius-ivan-djajusman-adi-243682169/', color: '#06B6D4' },
 ]
 
 export default function Contact() {
