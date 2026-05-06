@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView, useMotionValue, useTransform, useSpring } from 'framer-motion'
-import { FiExternalLink, FiGithub, FiLayout, FiShoppingCart, FiCode, FiStar, FiUsers } from 'react-icons/fi'
+import { FiExternalLink, FiGithub, FiLayout, FiShoppingCart, FiCode, FiStar, FiUsers, FiCreditCard } from 'react-icons/fi'
 import { FaGithub } from 'react-icons/fa'
 import { useLanguage } from '../context/LanguageContext'
 import './Projects.css'
@@ -51,6 +51,15 @@ const projects = [
     github: null,
     live: 'https://islandrituals.id/',
   },
+  {
+    title: 'MyCashier',
+    descKey: 'mycashier',
+    tags: ['Electron', 'React', 'SQLite', 'Tailwind CSS'],
+    color: '#F97316',
+    icon: <FiCreditCard />,
+    github: 'https://github.com/pecopero/MyCashier',
+    live: null,
+  },
 ]
 
 const descriptions = {
@@ -60,6 +69,7 @@ const descriptions = {
     sirclo: 'Built and scaled React-based frontend systems for high-traffic e-commerce platforms at SIRCLO. Developed reusable UI component libraries that improved team-wide development efficiency.',
     checkout: 'Led a performance optimization initiative at Bridzia that improved checkout page load speed by 80%. Applied code splitting, lazy loading, and clean architecture principles.',
     island: 'Developed a full Shopify storefront for Island Rituals, an Indonesian wellness and lifestyle brand. Implemented custom theme, product pages, and a smooth shopping experience optimized for mobile.',
+    mycashier: 'A full-featured offline desktop POS app built with Electron + React + SQLite. Supports barcode scanning, multiple payment methods (cash/transfer/QRIS), thermal receipt printing, stock management, supplier debt tracking, sales & P&L reports, and multi-user roles.',
   },
   id: {
     github: 'Proyek personal menggunakan React dan GitHub API untuk mencari dan menjelajahi repositori berdasarkan username. Fitur: pencarian real-time, pagination, dan UI responsif yang bersih.',
@@ -67,6 +77,7 @@ const descriptions = {
     sirclo: 'Membangun dan mengembangkan sistem frontend berbasis React untuk platform e-commerce traffic tinggi di SIRCLO. Mengembangkan library komponen UI yang meningkatkan efisiensi seluruh tim.',
     checkout: 'Memimpin inisiatif optimasi performa di Bridzia yang meningkatkan kecepatan halaman checkout sebesar 80%. Menerapkan code splitting, lazy loading, dan prinsip arsitektur bersih.',
     island: 'Mengembangkan storefront Shopify lengkap untuk Island Rituals, brand wellness dan lifestyle asal Indonesia. Mengimplementasikan custom theme, halaman produk, dan pengalaman belanja yang smooth dan mobile-friendly.',
+    mycashier: 'Aplikasi kasir desktop offline lengkap dibangun dengan Electron + React + SQLite. Fitur: barcode scanner, multi metode pembayaran (tunai/transfer/QRIS), cetak struk thermal, manajemen stok, hutang supplier + notifikasi jatuh tempo, laporan laba rugi, dan multi-user dengan role.',
   },
 }
 
