@@ -29,11 +29,13 @@
   opacity: 0;
   transition: opacity 0.4s ease;
   animation: spin-ga 3s linear infinite;
+  animation-play-state: paused;
   z-index: 0;
 }
 
 .proj-wrap:hover::before {
   opacity: 1;
+  animation-play-state: running;
 }
 
 .project-card {

@@ -187,11 +187,12 @@ function GitHubStats({ inView }) {
   const [stats, setStats] = useState(null)
 
   useEffect(() => {
+    if (!inView) return
     fetch('https://api.github.com/users/pecopero')
       .then(r => r.json())
       .then(d => setStats({ repos: d.public_repos, followers: d.followers }))
       .catch(() => {})
-  }, [])
+  }, [inView])
 
   if (!stats) return null
 
