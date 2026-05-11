@@ -75,9 +75,9 @@ function MagneticButton({ children }) {
 }
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 40 },
+  initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay, ease: 'easeOut' }
+  transition: { duration: 0.5, delay, ease: 'easeOut' }
 })
 
 export default function Hero() {
@@ -111,12 +111,12 @@ export default function Hero() {
       </div>
 
       <div className="container hero-content">
-        <motion.div className="hero-badge" {...fadeUp(0.2)}>
+        <motion.div className="hero-badge" {...fadeUp(0.05)}>
           <span className="badge-dot" />
           {t.hero.badge}
         </motion.div>
 
-        <motion.h1 className="hero-title" {...fadeUp(0.35)}>
+        <motion.h1 className="hero-title" {...fadeUp(0.1)}>
           {t.hero.greeting}{' '}
           <span className="gradient-text">Ivan Djajusman</span>
           <br />
@@ -126,7 +126,7 @@ export default function Hero() {
           </span>
         </motion.h1>
 
-        <motion.p className="hero-desc" {...fadeUp(0.5)}>
+        <motion.p className="hero-desc" {...fadeUp(0.15)}>
           {t.hero.desc.replace('{year}', '2019')}{' '}
           <span className="tag-inline">React</span>,{' '}
           <span className="tag-inline">TypeScript</span>,{' '}
@@ -134,7 +134,7 @@ export default function Hero() {
           <span className="tag-inline">Tailwind CSS</span>.
         </motion.p>
 
-        <motion.div className="hero-actions" {...fadeUp(0.65)}>
+        <motion.div className="hero-actions" {...fadeUp(0.25)}>
           <MagneticButton>
             <a href="#contact" className="btn btn-primary">{t.hero.talkBtn}</a>
           </MagneticButton>
@@ -146,7 +146,7 @@ export default function Hero() {
           </MagneticButton>
         </motion.div>
 
-        <motion.div className="hero-socials" {...fadeUp(0.8)}>
+        <motion.div className="hero-socials" {...fadeUp(0.35)}>
           <a href="https://github.com/pecopero" target="_blank" rel="noreferrer" className="social-link" aria-label="GitHub">
             <FaGithub size={22} />
           </a>
